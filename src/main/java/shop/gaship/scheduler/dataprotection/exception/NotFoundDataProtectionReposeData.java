@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.dataprotection.exception;
+package shop.gaship.scheduler.dataprotection.exception;
 
 /**
  * Secure Key Manager 에서 응답을 제대로 받지 못하거나 요청이 잘못 되었을 경우 발생하는 exception.

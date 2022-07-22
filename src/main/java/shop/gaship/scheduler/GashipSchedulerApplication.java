@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler;
+package shop.gaship.scheduler;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;

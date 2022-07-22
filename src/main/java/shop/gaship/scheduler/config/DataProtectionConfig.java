@@ -1,15 +1,13 @@
-package shop.gaship.gashipscheduler.config;
+package shop.gaship.scheduler.config;
 
+import java.util.Objects;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.reactive.function.client.WebClient;
-import shop.gaship.gashipscheduler.dataprotection.dto.SecureKeyResponse;
-import shop.gaship.gashipscheduler.dataprotection.exception.NotFoundDataProtectionReposeData;
+import shop.gaship.scheduler.dataprotection.dto.SecureKeyResponse;
+import shop.gaship.scheduler.dataprotection.exception.NotFoundDataProtectionReposeData;
 
-import java.util.Objects;
 
 /**
  * 서버 환경설정.
@@ -40,12 +38,6 @@ public class DataProtectionConfig {
                         .getBody())
                 .getBody()
                 .getSecret();
-    }
-
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     public String getUrl() {

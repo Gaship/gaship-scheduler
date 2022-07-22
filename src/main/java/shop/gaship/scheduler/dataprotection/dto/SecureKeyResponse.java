@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.dataprotection.dto;
+package shop.gaship.scheduler.dataprotection.dto;
 
 import lombok.Getter;
 
@@ -14,6 +14,9 @@ public class SecureKeyResponse {
     private Body body;
 
 
+    /**
+     * The type Header.
+     */
     @Getter
     public static class Header {
         private Integer resultCode;
@@ -21,6 +24,9 @@ public class SecureKeyResponse {
         private Boolean isSuccessful;
     }
 
+    /**
+     * The type Body.
+     */
     @Getter
     public static class Body {
         private String secret;
