@@ -1,11 +1,11 @@
-package shop.gaship.gashipscheduler.config;
+package shop.gaship.scheduler.config;
 
+import javax.sql.DataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
 
 /**
  * Mysql 데이터 소스를 불러오는 설정.
@@ -21,6 +21,12 @@ public class DataSourceConfig {
     private String username;
     private String password;
 
+    /**
+     * Gets data source.
+     *
+     * @param dataProtectionConfig DataProtectionConfig
+     * @return DataSource
+     */
     @Bean
     public DataSource getDataSource(DataProtectionConfig dataProtectionConfig) {
         String secretUrl = dataProtectionConfig.findSecretDataFromSecureKeyManager(url);

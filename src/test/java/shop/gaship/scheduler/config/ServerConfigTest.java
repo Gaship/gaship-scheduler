@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.config;
+package shop.gaship.scheduler.config;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
