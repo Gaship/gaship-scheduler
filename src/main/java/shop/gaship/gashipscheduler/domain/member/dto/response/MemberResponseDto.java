@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.member.dto.response;
+package shop.gaship.gashipscheduler.domain.member.dto.response;
 
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;

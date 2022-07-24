@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.gradehistory.dto.request;
+package shop.gaship.gashipscheduler.domain.gradehistory.dto.request;
 
 import lombok.AllArgsConstructor;
 

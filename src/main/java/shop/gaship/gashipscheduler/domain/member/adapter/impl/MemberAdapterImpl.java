@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.member.adapter.impl;
+package shop.gaship.gashipscheduler.domain.member.adapter.impl;
 
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
@@ -11,9 +11,9 @@ import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import shop.gaship.gashipscheduler.config.ServerConfig;
-import shop.gaship.gashipscheduler.member.adapter.MemberAdapter;
-import shop.gaship.gashipscheduler.member.dto.request.MemberModifyRequestDto;
-import shop.gaship.gashipscheduler.member.dto.response.MemberResponseDto;
+import shop.gaship.gashipscheduler.domain.member.adapter.MemberAdapter;
+import shop.gaship.gashipscheduler.domain.member.dto.request.MemberModifyRequestDto;
+import shop.gaship.gashipscheduler.domain.member.dto.response.MemberResponseDto;
 import shop.gaship.gashipscheduler.util.ExceptionUtil;
 
 
@@ -22,7 +22,7 @@ import shop.gaship.gashipscheduler.util.ExceptionUtil;
  *
  * @author : 김세미
  * @since 1.0
- * @see shop.gaship.gashipscheduler.member.adapter.MemberAdapter
+ * @see MemberAdapter
  */
 @Component
 @RequiredArgsConstructor

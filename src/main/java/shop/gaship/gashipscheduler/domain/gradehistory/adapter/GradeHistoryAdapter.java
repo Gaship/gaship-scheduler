@@ -1,6 +1,6 @@
-package shop.gaship.gashipscheduler.gradehistory.adapter;
+package shop.gaship.gashipscheduler.domain.gradehistory.adapter;
 
-import shop.gaship.gashipscheduler.gradehistory.dto.request.GradeHistoryAddRequestDto;
+import shop.gaship.gashipscheduler.domain.gradehistory.dto.request.GradeHistoryAddRequestDto;
 
 /**
  * 등급이력 관련 데이터 요청 adapter.

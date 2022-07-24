@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.gradehistory.adapter.impl;
+package shop.gaship.gashipscheduler.domain.gradehistory.adapter.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -7,8 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import shop.gaship.gashipscheduler.config.ServerConfig;
-import shop.gaship.gashipscheduler.gradehistory.adapter.GradeHistoryAdapter;
-import shop.gaship.gashipscheduler.gradehistory.dto.request.GradeHistoryAddRequestDto;
+import shop.gaship.gashipscheduler.domain.gradehistory.adapter.GradeHistoryAdapter;
+import shop.gaship.gashipscheduler.domain.gradehistory.dto.request.GradeHistoryAddRequestDto;
 import shop.gaship.gashipscheduler.util.ExceptionUtil;
 
 /**
@@ -16,7 +16,7 @@ import shop.gaship.gashipscheduler.util.ExceptionUtil;
  *
  * @author : 김세미
  * @since 1.0
- * @see shop.gaship.gashipscheduler.gradehistory.adapter.GradeHistoryAdapter
+ * @see GradeHistoryAdapter
  */
 @Component
 @RequiredArgsConstructor

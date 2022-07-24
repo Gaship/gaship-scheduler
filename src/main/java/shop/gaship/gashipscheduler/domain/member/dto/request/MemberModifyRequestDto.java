@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.member.dto.request;
+package shop.gaship.gashipscheduler.domain.member.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

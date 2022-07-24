@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.membergrade.adapter.impl;
+package shop.gaship.gashipscheduler.domain.membergrade.adapter.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -9,14 +9,14 @@ import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import shop.gaship.gashipscheduler.config.ServerConfig;
-import shop.gaship.gashipscheduler.membergrade.adapter.MemberGradeAdapter;
-import shop.gaship.gashipscheduler.membergrade.dto.response.MemberGradeResponseDto;
+import shop.gaship.gashipscheduler.domain.membergrade.adapter.MemberGradeAdapter;
+import shop.gaship.gashipscheduler.domain.membergrade.dto.response.MemberGradeResponseDto;
 
 /**
  * MemberGradeAdapter interface 구현체.
  *
  * @author : 김세미
- * @see shop.gaship.gashipscheduler.membergrade.adapter.MemberGradeAdapter
+ * @see MemberGradeAdapter
  * @since 1.0
  */
 @Component

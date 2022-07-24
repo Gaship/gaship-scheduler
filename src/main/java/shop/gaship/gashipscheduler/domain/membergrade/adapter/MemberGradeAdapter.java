@@ -1,7 +1,7 @@
-package shop.gaship.gashipscheduler.membergrade.adapter;
+package shop.gaship.gashipscheduler.domain.membergrade.adapter;
 
 import reactor.core.publisher.Flux;
-import shop.gaship.gashipscheduler.membergrade.dto.response.MemberGradeResponseDto;
+import shop.gaship.gashipscheduler.domain.membergrade.dto.response.MemberGradeResponseDto;
 
 /**
  * 회원등급과 관련한 데이터 요청을 보내는 adapter.
