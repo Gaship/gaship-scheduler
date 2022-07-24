@@ -2,6 +2,7 @@ package shop.gaship.gashipscheduler.member.adapter;
 
 import java.time.LocalDate;
 import reactor.core.publisher.Flux;
+import shop.gaship.gashipscheduler.member.dto.request.MemberModifyRequestDto;
 import shop.gaship.gashipscheduler.member.dto.response.MemberResponseDto;
 
 /**
@@ -12,4 +13,6 @@ import shop.gaship.gashipscheduler.member.dto.response.MemberResponseDto;
  */
 public interface MemberAdapter {
     Flux<MemberResponseDto> findMembersByRenewalDate(LocalDate renewalGradeDate);
+
+    boolean modifyMemberGrade(MemberModifyRequestDto requestDto);
 }

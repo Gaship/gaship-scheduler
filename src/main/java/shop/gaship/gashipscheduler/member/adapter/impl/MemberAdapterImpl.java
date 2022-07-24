@@ -3,6 +3,7 @@ package shop.gaship.gashipscheduler.member.adapter.impl;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -11,7 +12,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import shop.gaship.gashipscheduler.config.ServerConfig;
 import shop.gaship.gashipscheduler.member.adapter.MemberAdapter;
+import shop.gaship.gashipscheduler.member.dto.request.MemberModifyRequestDto;
 import shop.gaship.gashipscheduler.member.dto.response.MemberResponseDto;
+import shop.gaship.gashipscheduler.util.ExceptionUtil;
 
 
 /**
@@ -43,5 +46,16 @@ public class MemberAdapterImpl implements MemberAdapter {
                         .build())
                 .retrieve()
                 .bodyToFlux(MemberResponseDto.class);
+    }
+
+    @Override
+    public boolean modifyMemberGrade(MemberModifyRequestDto requestDto) {
+        webClient.put()
+                .uri(MEMBER_URL + "/" + requestDto.getMemberNo())
+                .bodyValue(requestDto)
+                .retrieve()
+                .onStatus(HttpStatus::isError, ExceptionUtil::createErrorMono);
+
+        return true;
     }
 }
