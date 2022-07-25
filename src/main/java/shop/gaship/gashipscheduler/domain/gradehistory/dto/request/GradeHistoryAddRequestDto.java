@@ -1,6 +1,6 @@
 package shop.gaship.gashipscheduler.domain.gradehistory.dto.request;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 /**
  * 등급이력 등록 요청 Data Transfer Object.
@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
  * @author : 김세미
  * @since 1.0
  */
-@AllArgsConstructor
+@Builder
 public class GradeHistoryAddRequestDto {
     private final Integer memberNo;
     private final Long totalAmount;
