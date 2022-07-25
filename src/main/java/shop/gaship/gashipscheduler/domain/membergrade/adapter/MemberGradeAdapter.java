@@ -1,6 +1,6 @@
 package shop.gaship.gashipscheduler.domain.membergrade.adapter;
 
-import reactor.core.publisher.Flux;
+import java.util.List;
 import shop.gaship.gashipscheduler.domain.membergrade.dto.response.MemberGradeResponseDto;
 
 /**
@@ -16,5 +16,5 @@ public interface MemberGradeAdapter {
      * @return Flux - MemberGradeResponseDto
      * @author 김세미
      */
-    Flux<MemberGradeResponseDto> findMemberGrades();
+    List<MemberGradeResponseDto> findMemberGrades();
 }
