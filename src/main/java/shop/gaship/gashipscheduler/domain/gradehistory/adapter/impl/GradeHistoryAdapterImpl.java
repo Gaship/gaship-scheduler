@@ -1,29 +1,31 @@
 package shop.gaship.gashipscheduler.domain.gradehistory.adapter.impl;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
+import shop.gaship.gashipscheduler.config.ServerConfig;
 import shop.gaship.gashipscheduler.domain.gradehistory.adapter.GradeHistoryAdapter;
 import shop.gaship.gashipscheduler.domain.gradehistory.dto.request.GradeHistoryAddRequestDto;
 import shop.gaship.gashipscheduler.exception.RequestFailureException;
-import shop.gaship.gashipscheduler.util.ExceptionUtil;
 
 /**
  * GradeHistoryAdapter interface 구현체.
  *
  * @author : 김세미
  * @since 1.0
- * @see GradeHistoryAdapter
+ * @see shop.gaship.gashipscheduler.domain.gradehistory.adapter.GradeHistoryAdapter
  */
 @Component
 @RequiredArgsConstructor
 public class GradeHistoryAdapterImpl implements GradeHistoryAdapter {
+    private static final Duration timeOut = Duration.of(3, ChronoUnit.SECONDS);
+    private static final String ERROR_MESSAGE = "응답결과가 존재하지 않습니다.";
     private static final String GRADE_HISTORY_URL = "/api/grade-histories";
+    private final ServerConfig serverConfig;
 
     /**
      * {@inheritDoc}
@@ -32,20 +34,17 @@ public class GradeHistoryAdapterImpl implements GradeHistoryAdapter {
      */
     @Override
     public void addGradeHistory(GradeHistoryAddRequestDto requestDto) {
-        UriBuilder uriBuilder = UriComponentsBuilder.newInstance();
-
         WebClient.builder()
+                .baseUrl(serverConfig.getShoppingMallUrl())
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build()
                 .post()
-                .uri(uriBuilder
-                        .scheme("http")
-                        .host("localhost")
-                        .port(7072)
-                        .path(GRADE_HISTORY_URL)
-                        .build())
+                .uri(serverConfig.getShoppingMallUrl() + GRADE_HISTORY_URL)
                 .bodyValue(requestDto)
                 .retrieve()
-                .onStatus(HttpStatus::isError, ExceptionUtil::createErrorMono);
+                .toEntity(Void.class)
+                .timeout(timeOut)
+                .blockOptional()
+                .orElseThrow(() -> new RequestFailureException(ERROR_MESSAGE)).getBody();
     }
 }

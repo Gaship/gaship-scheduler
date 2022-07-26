@@ -1,6 +1,7 @@
 package shop.gaship.gashipscheduler.domain.member.dto.request;
 
-import lombok.AllArgsConstructor;
+import java.time.LocalDate;
+import lombok.Builder;
 import lombok.Getter;
 
 /**
@@ -10,8 +11,9 @@ import lombok.Getter;
  * @since 1.0
  */
 @Getter
-@AllArgsConstructor
+@Builder
 public class MemberModifyRequestDto {
     private final Integer memberNo;
     private final Integer memberGradeNo;
+    private LocalDate nextRenewalGradeDate;
 }

@@ -1,21 +1,20 @@
 package shop.gaship.gashipscheduler.domain.member.adapter.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
-import reactor.core.publisher.Flux;
 import shop.gaship.gashipscheduler.config.ServerConfig;
 import shop.gaship.gashipscheduler.domain.member.adapter.MemberAdapter;
 import shop.gaship.gashipscheduler.domain.member.dto.request.MemberModifyRequestDto;
-import shop.gaship.gashipscheduler.domain.member.dto.response.MemberResponseDto;
-import shop.gaship.gashipscheduler.util.ExceptionUtil;
-
+import shop.gaship.gashipscheduler.domain.member.dto.response.MemberSchedulerResponseDto;
+import shop.gaship.gashipscheduler.exception.RequestFailureException;
 
 /**
  * MemberAdapter interface 구현체.
@@ -27,35 +26,44 @@ import shop.gaship.gashipscheduler.util.ExceptionUtil;
 @Component
 @RequiredArgsConstructor
 public class MemberAdapterImpl implements MemberAdapter {
+    private static final Duration timeOut = Duration.of(3, ChronoUnit.SECONDS);
+    private static final String ERROR_MESSAGE = "응답결과가 존재하지 않습니다.";
+    private static final String MEMBER_URL = "/api/members";
+    private final ObjectMapper mapper = new ObjectMapper();
+
     private final ServerConfig serverConfig;
 
-    private static final String MEMBER_URL = "/api/members";
-
-    private final WebClient webClient = WebClient.builder()
-            .baseUrl(serverConfig.getShoppingMallUrl())
-            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .build();
-
     @Override
-    public Flux<MemberResponseDto> findMembersByRenewalDate(LocalDate renewalGradeDate) {
-        UriBuilder uriBuilder = UriComponentsBuilder.newInstance();
+    public List<MemberSchedulerResponseDto> findMembersByRenewalDate(LocalDate renewalGradeDate) {
+        String queryParam = "?nextRenewalGradeDate=" + renewalGradeDate;
 
-        return webClient.get()
-                .uri(uriBuilder.path(MEMBER_URL)
-                        .queryParam("nextRenewalGradeDate", renewalGradeDate)
-                        .build())
+        return mapper.convertValue(WebClient.builder()
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).build()
+                .get()
+                .uri(serverConfig.getShoppingMallUrl() + MEMBER_URL + queryParam)
                 .retrieve()
-                .bodyToFlux(MemberResponseDto.class);
+                .toEntity(List.class)
+                .timeout(timeOut)
+                .blockOptional()
+                .orElseThrow(() -> new RequestFailureException(ERROR_MESSAGE)).getBody(),
+                mapper.getTypeFactory()
+                        .constructCollectionType(List.class, MemberSchedulerResponseDto.class));
     }
 
     @Override
-    public boolean modifyMemberGrade(MemberModifyRequestDto requestDto) {
-        webClient.put()
-                .uri(MEMBER_URL + "/" + requestDto.getMemberNo())
+    public void modifyMemberGrade(MemberModifyRequestDto requestDto) {
+        String queryParam = "?memberGradeNo=" + requestDto.getMemberGradeNo()
+                + "&nextRenewalGradeDate=" + requestDto.getNextRenewalGradeDate();
+
+        WebClient.builder()
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).build()
+                .put()
+                .uri(serverConfig.getShoppingMallUrl() + MEMBER_URL + queryParam)
                 .bodyValue(requestDto)
                 .retrieve()
-                .onStatus(HttpStatus::isError, ExceptionUtil::createErrorMono);
-
-        return true;
+                .toEntity(Void.class)
+                .timeout(timeOut)
+                .blockOptional()
+                .orElseThrow(() -> new RequestFailureException(ERROR_MESSAGE)).getBody();
     }
 }

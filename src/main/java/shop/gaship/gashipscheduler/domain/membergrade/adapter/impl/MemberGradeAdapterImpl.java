@@ -9,12 +9,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
+import shop.gaship.gashipscheduler.config.ServerConfig;
 import shop.gaship.gashipscheduler.domain.membergrade.adapter.MemberGradeAdapter;
 import shop.gaship.gashipscheduler.domain.membergrade.dto.response.MemberGradeResponseDto;
 import shop.gaship.gashipscheduler.exception.RequestFailureException;
-
 
 /**
  * MemberGradeAdapter interface 구현체.
@@ -29,8 +27,8 @@ public class MemberGradeAdapterImpl implements MemberGradeAdapter {
     private static final Duration timeOut = Duration.of(3, ChronoUnit.SECONDS);
     private static final String ERROR_MESSAGE = "응답결과가 존재하지 않습니다.";
     private static final String MEMBER_GRADE_URL = "/api/member-grades";
-
     private static final ObjectMapper mapper = new ObjectMapper();
+    private final ServerConfig serverConfig;
 
     /**
      * {@inheritDoc}
@@ -39,16 +37,11 @@ public class MemberGradeAdapterImpl implements MemberGradeAdapter {
      */
     @Override
     public List<MemberGradeResponseDto> findMemberGrades() {
-        UriBuilder uriBuilder = UriComponentsBuilder.newInstance();
 
         return mapper.convertValue(WebClient.builder()
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .build().get()
-                .uri(uriBuilder.scheme("http")
-                        .host("localhost")
-                        .port(7072)
-                        .path(MEMBER_GRADE_URL)
-                        .build())
+                .uri(serverConfig.getShoppingMallUrl() + MEMBER_GRADE_URL)
                 .retrieve()
                 .toEntity(List.class)
                 .timeout(timeOut)

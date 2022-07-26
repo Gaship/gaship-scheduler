@@ -1,9 +1,9 @@
 package shop.gaship.gashipscheduler.domain.member.adapter;
 
 import java.time.LocalDate;
-import reactor.core.publisher.Flux;
+import java.util.List;
 import shop.gaship.gashipscheduler.domain.member.dto.request.MemberModifyRequestDto;
-import shop.gaship.gashipscheduler.domain.member.dto.response.MemberResponseDto;
+import shop.gaship.gashipscheduler.domain.member.dto.response.MemberSchedulerResponseDto;
 
 /**
  * shopping mall rest-api 에 회원과 관련한 요청을 보내는 adapter.
@@ -12,7 +12,7 @@ import shop.gaship.gashipscheduler.domain.member.dto.response.MemberResponseDto;
  * @since 1.0
  */
 public interface MemberAdapter {
-    Flux<MemberResponseDto> findMembersByRenewalDate(LocalDate renewalGradeDate);
+    List<MemberSchedulerResponseDto> findMembersByRenewalDate(LocalDate renewalGradeDate);
 
-    boolean modifyMemberGrade(MemberModifyRequestDto requestDto);
+    void modifyMemberGrade(MemberModifyRequestDto requestDto);
 }
