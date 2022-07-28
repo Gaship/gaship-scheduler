@@ -1,5 +1,6 @@
-package shop.gaship.gashipscheduler.domain.gradehistory.dto.request;
+package shop.gaship.gashipscheduler.domain.membergrade.dto.request;
 
+import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,10 +10,11 @@ import lombok.Getter;
  * @author : 김세미
  * @since 1.0
  */
-@Getter
 @Builder
+@Getter
 public class GradeHistoryAddRequestDto {
     private final Integer memberNo;
     private final Long totalAmount;
     private final String gradeName;
+    private final LocalDate at;
 }
