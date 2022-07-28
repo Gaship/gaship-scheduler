@@ -1,11 +1,10 @@
 package shop.gaship.gashipscheduler.config;
 
+import javax.sql.DataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.sql.DataSource;
 
 /**
  * Mysql 데이터 소스를 불러오는 설정.
