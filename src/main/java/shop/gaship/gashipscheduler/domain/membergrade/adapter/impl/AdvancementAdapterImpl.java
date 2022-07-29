@@ -39,7 +39,7 @@ public class AdvancementAdapterImpl implements AdvancementAdapter {
      */
     @Override
     public List<AdvancementTargetResponseDto> findTargetsByRenewalDate(LocalDate renewalGradeDate) {
-        String path = "/target?renewalGradeDate" + renewalGradeDate;
+        String path = "/target?renewalGradeDate=" + renewalGradeDate.toString();
 
         return objectMapper.convertValue(WebClient.builder()
                         .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

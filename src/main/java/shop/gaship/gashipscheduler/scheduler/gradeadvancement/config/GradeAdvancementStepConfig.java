@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.listener.ExecutionContextPromotionListener;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
@@ -35,7 +34,7 @@ import shop.gaship.gashipscheduler.scheduler.gradeadvancement.writer.ProgressGra
 @Configuration
 @RequiredArgsConstructor
 public class GradeAdvancementStepConfig {
-    private static final int CHUNK_SIZE = 5;
+    private static final int CHUNK_SIZE = 1;
     private final StepBuilderFactory stepBuilderFactory;
     private final EntityManagerFactory entityManagerFactory;
     private final PrepareMemberGradeReader prepareMemberGradeReader;
@@ -67,7 +66,7 @@ public class GradeAdvancementStepConfig {
      * @return 회원등급 데이터 처리 관련 로직이 포함된 Step 을 반환한다.
      */
     @Bean
-    @StepScope
+    @JobScope
     public Step prepareMemberGradeList() {
         return stepBuilderFactory.get("회원등급 종류 얻는 step")
                 .allowStartIfComplete(true)
@@ -86,11 +85,11 @@ public class GradeAdvancementStepConfig {
      * @return 승급 대상회원 데이터 처리 관련 로직이 포함된 Step 을 반환한다.
      */
     @Bean
-    @StepScope
+    @JobScope
     public Step prepareTargetMemberList() {
         return stepBuilderFactory.get("승급 대상이 되는 회원 데이터를 준비하는 step")
                 .allowStartIfComplete(true)
-                .<List<AdvancementTargetResponseDto>, List<ConvertedTargetDataDto>>chunk(CHUNK_SIZE)
+                .<List<AdvancementTargetResponseDto>, ConvertedTargetDataDto>chunk(CHUNK_SIZE)
                 .reader(prepareTargetMemberReader)
                 .processor(prepareTargetMemberProcessor)
                 .writer(prepareTargetMemberWriter)

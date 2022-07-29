@@ -1,6 +1,5 @@
 package shop.gaship.gashipscheduler.scheduler.gradeadvancement.processor;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
@@ -16,22 +15,19 @@ import shop.gaship.gashipscheduler.scheduler.gradeadvancement.dto.ConvertedTarge
  */
 @Component
 public class PrepareTargetMemberProcessor
-        implements ItemProcessor<List<AdvancementTargetResponseDto>, List<ConvertedTargetDataDto>> {
+        implements ItemProcessor<List<AdvancementTargetResponseDto>, ConvertedTargetDataDto> {
 
     @Override
-    public List<ConvertedTargetDataDto>
+    public ConvertedTargetDataDto
             process(List<AdvancementTargetResponseDto> targetResponseDtoList) {
-        List<ConvertedTargetDataDto> convertedTargetDataDtoList = new ArrayList<>();
+        AdvancementTargetResponseDto responseDto = targetResponseDtoList.get(0);
 
-        targetResponseDtoList.forEach(item -> {
-            ConvertedTargetDataDto convertedTargetDataDto = new ConvertedTargetDataDto();
-            convertedTargetDataDto.setMemberNo(item.getMemberNo());
-            convertedTargetDataDto.setNextRenewalGradeDate(item.getNextRenewalGradeDate());
-            convertedTargetDataDto.setIsComplete(false);
+        ConvertedTargetDataDto convertedTargetDataDto = new ConvertedTargetDataDto();
 
-            convertedTargetDataDtoList.add(new ConvertedTargetDataDto());
-        });
+        convertedTargetDataDto.setMemberNo(responseDto.getMemberNo());
+        convertedTargetDataDto.setNextRenewalGradeDate(responseDto.getNextRenewalGradeDate());
+        convertedTargetDataDto.setIsComplete(false);
 
-        return convertedTargetDataDtoList;
+        return convertedTargetDataDto;
     }
 }

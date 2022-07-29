@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.BeforeStep;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import shop.gaship.gashipscheduler.domain.membergrade.dto.response.MemberGradeRe
  * @since 1.0
  */
 @Component
+@StepScope
 @Slf4j
 public class PrepareMemberGradeWriter implements ItemWriter<List<MemberGradeResponseDto>> {
     private StepExecution stepExecution;

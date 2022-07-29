@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.BeforeStep;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 import shop.gaship.gashipscheduler.domain.membergrade.adapter.AdvancementAdapter;
@@ -29,6 +30,7 @@ import shop.gaship.gashipscheduler.scheduler.gradeadvancement.exception.MemberGr
  */
 @Component
 @RequiredArgsConstructor
+@StepScope
 public class ProgressGradeAdvancementProcessor
         implements ItemProcessor<AdvancementTarget, RenewalMemberGradeRequestDto> {
 

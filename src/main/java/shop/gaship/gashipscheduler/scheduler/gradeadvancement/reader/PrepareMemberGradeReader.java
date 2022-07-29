@@ -20,14 +20,14 @@ import shop.gaship.gashipscheduler.domain.membergrade.dto.response.MemberGradeRe
 public class PrepareMemberGradeReader implements ItemReader<List<MemberGradeResponseDto>> {
     private final MemberGradeAdapter memberGradeAdapter;
 
+    private int count = 0;
+
     @Override
     public List<MemberGradeResponseDto> read() {
-        int count;
+        List<MemberGradeResponseDto> memberGradeList = memberGradeAdapter
+                .findMemberGrades();
+        count++;
 
-        List<MemberGradeResponseDto> memberGradeList = memberGradeAdapter.findMemberGrades();
-
-        count = memberGradeList.size();
-
-        return count == 0 ? null : memberGradeList;
+        return count == 1 ? memberGradeList : null;
     }
 }

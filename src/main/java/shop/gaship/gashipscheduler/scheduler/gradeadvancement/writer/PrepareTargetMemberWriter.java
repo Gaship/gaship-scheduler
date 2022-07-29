@@ -1,5 +1,6 @@
 package shop.gaship.gashipscheduler.scheduler.gradeadvancement.writer;
 
+import java.lang.annotation.Repeatable;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemWriter;
@@ -16,17 +17,14 @@ import shop.gaship.gashipscheduler.scheduler.gradeadvancement.repository.Advance
  */
 @Component
 @RequiredArgsConstructor
-public class PrepareTargetMemberWriter implements ItemWriter<List<ConvertedTargetDataDto>> {
+public class PrepareTargetMemberWriter implements ItemWriter<ConvertedTargetDataDto> {
     private final AdvancementTargetRepository advancementTargetRepository;
 
     @Override
-    public void write(List<? extends List<ConvertedTargetDataDto>> inputList) {
-        for (List<ConvertedTargetDataDto> targetList : inputList) {
-            targetList.forEach(target -> {
-                AdvancementTarget advancementTarget = new AdvancementTarget(target);
-
-                advancementTargetRepository.save(advancementTarget);
-            });
+    public void write(List<? extends ConvertedTargetDataDto> targetList) {
+        for (ConvertedTargetDataDto target : targetList) {
+            AdvancementTarget advancementTarget = new AdvancementTarget(target);
+            advancementTargetRepository.save(advancementTarget);
         }
     }
 }
