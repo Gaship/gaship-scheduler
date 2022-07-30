@@ -34,3 +34,6 @@ build/
 
 ### applicaion property ###
 /**/application.properties
+
+# local dev logging
+/log
