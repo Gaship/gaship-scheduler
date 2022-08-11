@@ -21,6 +21,7 @@ import shop.gaship.gashipscheduler.scheduler.gradeadvancement.processor.PrepareT
 import shop.gaship.gashipscheduler.scheduler.gradeadvancement.processor.ProgressGradeAdvancementProcessor;
 import shop.gaship.gashipscheduler.scheduler.gradeadvancement.reader.PrepareMemberGradeReader;
 import shop.gaship.gashipscheduler.scheduler.gradeadvancement.reader.PrepareTargetMemberReader;
+import shop.gaship.gashipscheduler.scheduler.gradeadvancement.reader.PrepareTargetPaginationReader;
 import shop.gaship.gashipscheduler.scheduler.gradeadvancement.writer.PrepareMemberGradeWriter;
 import shop.gaship.gashipscheduler.scheduler.gradeadvancement.writer.PrepareTargetMemberWriter;
 import shop.gaship.gashipscheduler.scheduler.gradeadvancement.writer.ProgressGradeAdvancementWriter;
@@ -44,6 +45,8 @@ public class GradeAdvancementStepConfig {
     private final PrepareTargetMemberWriter prepareTargetMemberWriter;
     private final ProgressGradeAdvancementProcessor progressGradeAdvancementProcessor;
     private final ProgressGradeAdvancementWriter progressGradeAdvancementWriter;
+
+    private final PrepareTargetPaginationReader paginationReader;
 
     /**
      * step 간 데이터 공유를 위한 ExecutionContextPromotionListener.
@@ -89,8 +92,8 @@ public class GradeAdvancementStepConfig {
     public Step prepareTargetMemberList() {
         return stepBuilderFactory.get("승급 대상이 되는 회원 데이터를 준비하는 step")
                 .allowStartIfComplete(true)
-                .<List<AdvancementTargetResponseDto>, ConvertedTargetDataDto>chunk(CHUNK_SIZE)
-                .reader(prepareTargetMemberReader)
+                .<AdvancementTargetResponseDto, ConvertedTargetDataDto>chunk(CHUNK_SIZE)
+                .reader(paginationReader)
                 .processor(prepareTargetMemberProcessor)
                 .writer(prepareTargetMemberWriter)
                 .build();

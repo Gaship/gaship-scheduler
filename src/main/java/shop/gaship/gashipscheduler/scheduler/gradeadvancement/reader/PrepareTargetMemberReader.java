@@ -1,5 +1,6 @@
 package shop.gaship.gashipscheduler.scheduler.gradeadvancement.reader;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import shop.gaship.gashipscheduler.domain.membergrade.dto.response.AdvancementTa
 @RequiredArgsConstructor
 public class PrepareTargetMemberReader implements ItemReader<List<AdvancementTargetResponseDto>> {
     private final AdvancementAdapter advancementAdapter;
-
+    private static int cnt =0;
     @Override
     public List<AdvancementTargetResponseDto> read() {
         int count;
@@ -31,10 +32,14 @@ public class PrepareTargetMemberReader implements ItemReader<List<AdvancementTar
         }
 
         List<AdvancementTargetResponseDto> targetList = advancementAdapter
-                .findTargetsByRenewalDate(renewalDate.toLocalDate());
+                .findTargetsByRenewalDate(LocalDate.of(2022, 07, 28));
+//                .findTargetsByRenewalDate(renewalDate.toLocalDate());
 
         count = targetList.size();
-
+        cnt++;
+        if(cnt>1){
+            return null;
+        }
         return count == 0 ? null : targetList;
     }
 }

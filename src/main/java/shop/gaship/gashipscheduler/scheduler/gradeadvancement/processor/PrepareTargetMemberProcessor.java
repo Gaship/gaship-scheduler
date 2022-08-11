@@ -1,6 +1,5 @@
 package shop.gaship.gashipscheduler.scheduler.gradeadvancement.processor;
 
-import java.util.List;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 import shop.gaship.gashipscheduler.domain.membergrade.dto.response.AdvancementTargetResponseDto;
@@ -15,12 +14,12 @@ import shop.gaship.gashipscheduler.scheduler.gradeadvancement.dto.ConvertedTarge
  */
 @Component
 public class PrepareTargetMemberProcessor
-        implements ItemProcessor<List<AdvancementTargetResponseDto>, ConvertedTargetDataDto> {
+        implements ItemProcessor<AdvancementTargetResponseDto, ConvertedTargetDataDto> {
 
     @Override
     public ConvertedTargetDataDto
-            process(List<AdvancementTargetResponseDto> targetResponseDtoList) {
-        AdvancementTargetResponseDto responseDto = targetResponseDtoList.get(0);
+            process(AdvancementTargetResponseDto targetResponseDtoList) {
+        AdvancementTargetResponseDto responseDto = targetResponseDtoList;
 
         ConvertedTargetDataDto convertedTargetDataDto = new ConvertedTargetDataDto();
 
