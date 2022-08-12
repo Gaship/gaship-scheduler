@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -17,25 +17,23 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ExtendWith(SpringExtension.class)
 @EnableConfigurationProperties(
-        value = {DataSourceConfig.class, DataProtectionConfig.class})
+        value = {DataProtectionConfig.class})
 @TestPropertySource({
         "classpath:application-dev.properties",
         "classpath:application.properties"
 })
+@Import({DataSourceConfig.class})
 class DataSourceConfigTest {
     @Autowired
-    DataSourceConfig dataSourceConfig;
+    private DataSourceConfig dataSourceConfig;
 
     @Test
-    void dataSourceConfigTest() {
-        assertThat(dataSourceConfig.getDriverClassName())
-                .isEqualTo("com.mysql.cj.jdbc.Driver");
-        assertThat(dataSourceConfig.getUrl())
-                .isEqualTo("0a9480a606714b40af45ccb31fda725a");
-        assertThat(dataSourceConfig.getUsername())
-                .isEqualTo("gaship");
-        assertThat(dataSourceConfig.getPassword())
-                .isEqualTo("876b9add24b943869830b1919a7525ab");
-
+    void dataSourceConfigTest(){
+        assertThat(dataSourceConfig.getUsername()).isEqualTo("gaship");
+        assertThat(dataSourceConfig.getPassword()).isEqualTo("876b9add24b943869830b1919a7525ab");
+        assertThat(dataSourceConfig.getDataSourceClassName()).isEqualTo("com.mysql.cj.jdbc.MysqlDataSource");
+        assertThat(dataSourceConfig.getJobUrl()).isEqualTo("6604fb84a7a648bd9f78a3c09a70631c");
+        assertThat(dataSourceConfig.getCouponUrl()).isEqualTo("2590912e7730471d851685ffc55ee6a9");
+        assertThat(dataSourceConfig.getShopUrl()).isEqualTo("e67723aa5f3840ada297c5e6ee94799e");
     }
 }
