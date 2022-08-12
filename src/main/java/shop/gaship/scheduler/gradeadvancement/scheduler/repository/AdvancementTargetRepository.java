@@ -1,11 +1,11 @@
-package shop.gaship.gashipscheduler.gradeadvancement.scheduler.repository;
+package shop.gaship.scheduler.gradeadvancement.scheduler.repository;
 
 import java.time.LocalDate;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.entity.AdvancementTarget;
+import shop.gaship.scheduler.gradeadvancement.scheduler.entity.AdvancementTarget;
 
 /**
  * 승급 대상회원 관련 repository.

@@ -9,10 +9,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import shop.gaship.gashipscheduler.config.ServerConfig;
-import shop.gaship.gashipscheduler.exception.RequestFailureException;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.adapter.MemberGradeAdapter;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.response.MemberGradeResponseDto;
+import shop.gaship.scheduler.config.ServerConfig;
+import shop.gaship.scheduler.exception.RequestFailureException;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.adapter.MemberGradeAdapter;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response.MemberGradeResponseDto;
 
 /**
  * MemberGradeAdapter interface 구현체.

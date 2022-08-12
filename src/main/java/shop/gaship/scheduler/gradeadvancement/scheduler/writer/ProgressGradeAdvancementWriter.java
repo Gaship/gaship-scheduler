@@ -4,11 +4,11 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.adapter.AdvancementAdapter;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.request.RenewalMemberGradeRequestDto;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.entity.AdvancementTarget;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.repository.AdvancementTargetRepository;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.exception.TargetNotFoundException;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.adapter.AdvancementAdapter;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.request.RenewalMemberGradeRequestDto;
+import shop.gaship.scheduler.gradeadvancement.scheduler.entity.AdvancementTarget;
+import shop.gaship.scheduler.gradeadvancement.scheduler.exception.TargetNotFoundException;
+import shop.gaship.scheduler.gradeadvancement.scheduler.repository.AdvancementTargetRepository;
 
 /**
  * 변환된 승급 데이터를 저장하기 위한 Item Writer 구현체.

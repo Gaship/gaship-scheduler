@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.gradeadvancement.scheduler.dto;
+package shop.gaship.scheduler.gradeadvancement.scheduler.dto;
 
 import java.time.LocalDate;
 import lombok.Getter;

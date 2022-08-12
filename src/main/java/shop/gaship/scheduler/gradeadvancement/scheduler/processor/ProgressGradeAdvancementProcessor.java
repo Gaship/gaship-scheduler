@@ -12,13 +12,13 @@ import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.adapter.AdvancementAdapter;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.request.AdvancementMemberRequestDto;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.request.GradeHistoryAddRequestDto;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.request.RenewalMemberGradeRequestDto;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.response.MemberGradeResponseDto;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.entity.AdvancementTarget;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.exception.MemberGradeEvaluateException;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.adapter.AdvancementAdapter;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.request.AdvancementMemberRequestDto;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.request.GradeHistoryAddRequestDto;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.request.RenewalMemberGradeRequestDto;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response.MemberGradeResponseDto;
+import shop.gaship.scheduler.gradeadvancement.scheduler.entity.AdvancementTarget;
+import shop.gaship.scheduler.gradeadvancement.scheduler.exception.MemberGradeEvaluateException;
 
 /**
  * 승급 대상회원 데이터와 회원등급 데이터를 통해

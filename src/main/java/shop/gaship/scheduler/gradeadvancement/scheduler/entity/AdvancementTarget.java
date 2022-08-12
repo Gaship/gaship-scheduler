@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.gradeadvancement.scheduler.entity;
+package shop.gaship.scheduler.gradeadvancement.scheduler.entity;
 
 import java.time.LocalDate;
 import javax.persistence.Column;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.dto.ConvertedTargetDataDto;
+import shop.gaship.scheduler.gradeadvancement.scheduler.dto.ConvertedTargetDataDto;
 
 /**
  * 승급 대상 Entity class.

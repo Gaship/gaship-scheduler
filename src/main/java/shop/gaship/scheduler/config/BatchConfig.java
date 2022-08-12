@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.config;
+package shop.gaship.scheduler.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.configuration.JobRegistry;

@@ -14,7 +14,6 @@ import org.springframework.data.transaction.ChainedTransactionManager;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.sql.DataSource;
 
 /**
  * Mysql data source 관련 설정 Configuration 입니다.

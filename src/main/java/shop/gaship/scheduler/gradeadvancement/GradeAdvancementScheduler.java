@@ -10,8 +10,8 @@ import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteExcep
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.config.GradeAdvancementJobConfig;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.exception.MemberGradeAdvanceRunException;
+import shop.gaship.scheduler.gradeadvancement.scheduler.config.GradeAdvancementJobConfig;
+import shop.gaship.scheduler.gradeadvancement.scheduler.exception.MemberGradeAdvanceRunException;
 
 /**
  * 회원승급 job scheduler.

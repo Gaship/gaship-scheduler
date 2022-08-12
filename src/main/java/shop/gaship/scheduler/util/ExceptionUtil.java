@@ -2,8 +2,8 @@ package shop.gaship.scheduler.util;
 
 import org.springframework.web.reactive.function.client.ClientResponse;
 import reactor.core.publisher.Mono;
-import shop.gaship.gashipscheduler.exception.RequestFailureException;
-import shop.gaship.gashipscheduler.message.ErrorResponse;
+import shop.gaship.scheduler.exception.RequestFailureException;
+import shop.gaship.scheduler.message.ErrorResponse;
 
 /**
  * WebClient error 전역 처리를 위한 util class.

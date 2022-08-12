@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.response;
+package shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;

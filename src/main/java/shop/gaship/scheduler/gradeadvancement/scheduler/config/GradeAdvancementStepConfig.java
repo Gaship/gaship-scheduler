@@ -12,19 +12,19 @@ import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.request.RenewalMemberGradeRequestDto;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.response.AdvancementTargetResponseDto;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.response.MemberGradeResponseDto;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.writer.PrepareTargetMemberWriter;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.dto.ConvertedTargetDataDto;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.entity.AdvancementTarget;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.processor.PrepareTargetMemberProcessor;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.processor.ProgressGradeAdvancementProcessor;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.reader.PrepareMemberGradeReader;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.reader.PrepareTargetMemberReader;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.reader.PrepareTargetPaginationReader;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.writer.PrepareMemberGradeWriter;
-import shop.gaship.gashipscheduler.gradeadvancement.scheduler.writer.ProgressGradeAdvancementWriter;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.request.RenewalMemberGradeRequestDto;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response.AdvancementTargetResponseDto;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response.MemberGradeResponseDto;
+import shop.gaship.scheduler.gradeadvancement.scheduler.dto.ConvertedTargetDataDto;
+import shop.gaship.scheduler.gradeadvancement.scheduler.entity.AdvancementTarget;
+import shop.gaship.scheduler.gradeadvancement.scheduler.processor.PrepareTargetMemberProcessor;
+import shop.gaship.scheduler.gradeadvancement.scheduler.processor.ProgressGradeAdvancementProcessor;
+import shop.gaship.scheduler.gradeadvancement.scheduler.reader.PrepareMemberGradeReader;
+import shop.gaship.scheduler.gradeadvancement.scheduler.reader.PrepareTargetMemberReader;
+import shop.gaship.scheduler.gradeadvancement.scheduler.reader.PrepareTargetPaginationReader;
+import shop.gaship.scheduler.gradeadvancement.scheduler.writer.PrepareMemberGradeWriter;
+import shop.gaship.scheduler.gradeadvancement.scheduler.writer.PrepareTargetMemberWriter;
+import shop.gaship.scheduler.gradeadvancement.scheduler.writer.ProgressGradeAdvancementWriter;
 
 /**
  * 회원 승급 관련 Step 설정 configuration.

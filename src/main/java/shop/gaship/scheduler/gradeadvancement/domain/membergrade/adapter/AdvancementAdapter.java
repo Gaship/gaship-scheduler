@@ -1,9 +1,9 @@
-package shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.adapter;
+package shop.gaship.scheduler.gradeadvancement.domain.membergrade.adapter;
 
 import java.time.LocalDate;
 import java.util.List;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.request.RenewalMemberGradeRequestDto;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.response.AdvancementTargetResponseDto;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.request.RenewalMemberGradeRequestDto;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response.AdvancementTargetResponseDto;
 
 
 /**

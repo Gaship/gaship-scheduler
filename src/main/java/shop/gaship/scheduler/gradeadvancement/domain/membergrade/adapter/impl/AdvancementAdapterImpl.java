@@ -1,4 +1,4 @@
-package shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.adapter.impl;
+package shop.gaship.scheduler.gradeadvancement.domain.membergrade.adapter.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Duration;
@@ -10,11 +10,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import shop.gaship.gashipscheduler.config.ServerConfig;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.adapter.AdvancementAdapter;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.request.RenewalMemberGradeRequestDto;
-import shop.gaship.gashipscheduler.gradeadvancement.domain.membergrade.dto.response.AdvancementTargetResponseDto;
-import shop.gaship.gashipscheduler.exception.RequestFailureException;
+import shop.gaship.scheduler.config.ServerConfig;
+import shop.gaship.scheduler.exception.RequestFailureException;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.adapter.AdvancementAdapter;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.request.RenewalMemberGradeRequestDto;
+import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response.AdvancementTargetResponseDto;
 
 /**
  * 회원 승급 adapter interface 구현체.
