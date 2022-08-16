@@ -3,6 +3,8 @@ package shop.gaship.scheduler.gradeadvancement.scheduler.reader;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.database.JdbcPagingItemReader;
+import org.springframework.batch.item.database.builder.JdbcPagingItemReaderBuilder;
 import org.springframework.stereotype.Component;
 import shop.gaship.scheduler.gradeadvancement.domain.membergrade.adapter.MemberGradeAdapter;
 import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response.MemberGradeResponseDto;
