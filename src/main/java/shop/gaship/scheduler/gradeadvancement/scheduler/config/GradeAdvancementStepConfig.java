@@ -7,22 +7,20 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.listener.ExecutionContextPromotionListener;
+import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.request.RenewalMemberGradeRequestDto;
-import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response.AdvancementTargetResponseDto;
 import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response.MemberGradeResponseDto;
-import shop.gaship.scheduler.gradeadvancement.scheduler.dto.ConvertedTargetDataDto;
+import shop.gaship.scheduler.gradeadvancement.scheduler.dto.ConvertedTargetDto;
+import shop.gaship.scheduler.gradeadvancement.scheduler.dto.GradeRenewalTargetDto;
 import shop.gaship.scheduler.gradeadvancement.scheduler.entity.AdvancementTarget;
 import shop.gaship.scheduler.gradeadvancement.scheduler.processor.PrepareTargetMemberProcessor;
 import shop.gaship.scheduler.gradeadvancement.scheduler.processor.ProgressGradeAdvancementProcessor;
-import shop.gaship.scheduler.gradeadvancement.scheduler.reader.PrepareTargetMemberReader;
-import shop.gaship.scheduler.gradeadvancement.scheduler.reader.PrepareTargetPaginationReader;
 import shop.gaship.scheduler.gradeadvancement.scheduler.writer.PrepareMemberGradeWriter;
-import shop.gaship.scheduler.gradeadvancement.scheduler.writer.PrepareTargetMemberWriter;
 import shop.gaship.scheduler.gradeadvancement.scheduler.writer.ProgressGradeAdvancementWriter;
 
 /**
@@ -38,14 +36,15 @@ public class GradeAdvancementStepConfig {
 
     private final StepBuilderFactory stepBuilderFactory;
     private final EntityManagerFactory entityManagerFactory;
-    private final PrepareMemberGradeWriter prepareMemberGradeWriter;
-    private final PrepareTargetMemberReader prepareTargetMemberReader;
-    private final PrepareTargetMemberProcessor prepareTargetMemberProcessor;
-    private final PrepareTargetMemberWriter prepareTargetMemberWriter;
+
     private final ProgressGradeAdvancementProcessor progressGradeAdvancementProcessor;
     private final ProgressGradeAdvancementWriter progressGradeAdvancementWriter;
-    private final PrepareTargetPaginationReader paginationReader;
     private final JdbcPagingItemReader<MemberGradeResponseDto> prepareMemberGradeReader;
+    private final PrepareMemberGradeWriter prepareMemberGradeWriter;
+
+    private final JdbcPagingItemReader<GradeRenewalTargetDto> prepareTargetMemberReader;
+    private final PrepareTargetMemberProcessor prepareTargetMemberProcessor;
+    private final JdbcBatchItemWriter<ConvertedTargetDto> prepareTargetMemberWriter;
 
     /**
      * step 간 데이터 공유를 위한 ExecutionContextPromotionListener.
@@ -91,8 +90,8 @@ public class GradeAdvancementStepConfig {
     public Step prepareTargetMemberList() {
         return stepBuilderFactory.get("승급 대상이 되는 회원 데이터를 준비하는 step")
                 .allowStartIfComplete(true)
-                .<AdvancementTargetResponseDto, ConvertedTargetDataDto>chunk(CHUNK_SIZE)
-                .reader(paginationReader)
+                .<GradeRenewalTargetDto, ConvertedTargetDto>chunk(CHUNK_SIZE)
+                .reader(prepareTargetMemberReader)
                 .processor(prepareTargetMemberProcessor)
                 .writer(prepareTargetMemberWriter)
                 .build();

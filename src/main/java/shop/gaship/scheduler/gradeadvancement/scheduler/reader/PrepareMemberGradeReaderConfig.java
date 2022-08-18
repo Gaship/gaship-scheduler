@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.batch.item.database.Order;
 import org.springframework.batch.item.database.PagingQueryProvider;
@@ -35,6 +36,7 @@ public class PrepareMemberGradeReaderConfig {
      * @return shopping mall db 로 부터 회원등급 종류에 대해 다건 조회하는 JdbcPagingItemReader 를 반환합니다.
      */
     @Bean
+    @StepScope
     public JdbcPagingItemReader<MemberGradeResponseDto> prepareMemberGradeReader() {
         return new JdbcPagingItemReaderBuilder<MemberGradeResponseDto>()
                 .dataSource(shopDataSource)

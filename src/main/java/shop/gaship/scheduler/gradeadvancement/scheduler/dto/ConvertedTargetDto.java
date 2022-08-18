@@ -11,8 +11,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ConvertedTargetDataDto {
+public class ConvertedTargetDto {
     private Integer memberNo;
-    private String nextRenewalGradeDate;
+    private String renewalGradeDate;
     private Boolean isComplete;
 }
