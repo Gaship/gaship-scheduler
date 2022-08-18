@@ -19,13 +19,16 @@ import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response.Me
 @Component
 @StepScope
 @Slf4j
-public class PrepareMemberGradeWriter implements ItemWriter<List<MemberGradeResponseDto>> {
+public class PrepareMemberGradeWriter implements ItemWriter<MemberGradeResponseDto> {
     private StepExecution stepExecution;
 
+    /**
+     * {@inheritDoc}
+     * JdbcPagingItemReader 를 통해 읽어온 회원등급 종류에 대한 데이터를
+     * 다음 step 과 공유하기 위해 stepExecution 에 저장합니다.
+     */
     @Override
-    public void write(List<? extends List<MemberGradeResponseDto>> memberGradeList) {
-        log.debug("다음 step 에 넘어갈 회원등급 데이터 : {}", memberGradeList.toString());
-
+    public void write(List<? extends MemberGradeResponseDto> memberGradeList) {
         ExecutionContext executionContext = this.stepExecution.getExecutionContext();
         executionContext.put("memberGradeList", memberGradeList);
     }
