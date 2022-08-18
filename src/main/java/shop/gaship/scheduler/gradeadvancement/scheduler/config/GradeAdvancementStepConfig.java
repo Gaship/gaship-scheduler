@@ -1,13 +1,13 @@
 package shop.gaship.scheduler.gradeadvancement.scheduler.config;
 
 import java.time.LocalDate;
-import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.listener.ExecutionContextPromotionListener;
+import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,6 @@ import shop.gaship.scheduler.gradeadvancement.scheduler.dto.ConvertedTargetDataD
 import shop.gaship.scheduler.gradeadvancement.scheduler.entity.AdvancementTarget;
 import shop.gaship.scheduler.gradeadvancement.scheduler.processor.PrepareTargetMemberProcessor;
 import shop.gaship.scheduler.gradeadvancement.scheduler.processor.ProgressGradeAdvancementProcessor;
-import shop.gaship.scheduler.gradeadvancement.scheduler.reader.PrepareMemberGradeReader;
 import shop.gaship.scheduler.gradeadvancement.scheduler.reader.PrepareTargetMemberReader;
 import shop.gaship.scheduler.gradeadvancement.scheduler.reader.PrepareTargetPaginationReader;
 import shop.gaship.scheduler.gradeadvancement.scheduler.writer.PrepareMemberGradeWriter;
@@ -35,18 +34,18 @@ import shop.gaship.scheduler.gradeadvancement.scheduler.writer.ProgressGradeAdva
 @Configuration
 @RequiredArgsConstructor
 public class GradeAdvancementStepConfig {
-    private static final int CHUNK_SIZE = 1;
+    private static final int CHUNK_SIZE = 5;
+
     private final StepBuilderFactory stepBuilderFactory;
     private final EntityManagerFactory entityManagerFactory;
-    private final PrepareMemberGradeReader prepareMemberGradeReader;
     private final PrepareMemberGradeWriter prepareMemberGradeWriter;
     private final PrepareTargetMemberReader prepareTargetMemberReader;
     private final PrepareTargetMemberProcessor prepareTargetMemberProcessor;
     private final PrepareTargetMemberWriter prepareTargetMemberWriter;
     private final ProgressGradeAdvancementProcessor progressGradeAdvancementProcessor;
     private final ProgressGradeAdvancementWriter progressGradeAdvancementWriter;
-
     private final PrepareTargetPaginationReader paginationReader;
+    private final JdbcPagingItemReader<MemberGradeResponseDto> prepareMemberGradeReader;
 
     /**
      * step 간 데이터 공유를 위한 ExecutionContextPromotionListener.
@@ -73,7 +72,7 @@ public class GradeAdvancementStepConfig {
     public Step prepareMemberGradeList() {
         return stepBuilderFactory.get("회원등급 종류 얻는 step")
                 .allowStartIfComplete(true)
-                .<List<MemberGradeResponseDto>, List<MemberGradeResponseDto>>chunk(CHUNK_SIZE)
+                .<MemberGradeResponseDto, MemberGradeResponseDto>chunk(CHUNK_SIZE)
                 .reader(prepareMemberGradeReader)
                 .writer(prepareMemberGradeWriter)
                 .listener(promotionListener())
