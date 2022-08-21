@@ -1,4 +1,4 @@
-package shop.gaship.scheduler.gradeadvancement.scheduler.config;
+package shop.gaship.scheduler.graderenewal.config;
 
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
@@ -26,11 +26,10 @@ public class GradeAdvancementJobConfig {
      * @author 김세미
      */
     @Bean
-    public Job advanceJob() {
-        return jobBuilderFactory.get(LocalDateTime.now().toString())
+    public Job renewalJob() {
+        return jobBuilderFactory.get("grade-renewal_" +  LocalDateTime.now())
                 .start(stepConfig.prepareMemberGradeList())
-                .next(stepConfig.prepareTargetMemberList())
-                .next(stepConfig.progressGradeAdvancement())
+                .next(stepConfig.progressGradeRenewal())
                 .build();
     }
 }

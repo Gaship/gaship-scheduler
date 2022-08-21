@@ -1,4 +1,4 @@
-package shop.gaship.scheduler.gradeadvancement.scheduler.exception;
+package shop.gaship.scheduler.graderenewal.exception;
 
 import lombok.Getter;
 

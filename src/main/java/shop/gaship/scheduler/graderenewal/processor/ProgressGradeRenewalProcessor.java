@@ -1,8 +1,9 @@
-package shop.gaship.scheduler.gradeadvancement.scheduler.processor;
+package shop.gaship.scheduler.graderenewal.processor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -12,13 +13,11 @@ import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
-import shop.gaship.scheduler.gradeadvancement.domain.membergrade.adapter.AdvancementAdapter;
-import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.request.AdvancementMemberRequestDto;
-import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.request.GradeHistoryAddRequestDto;
-import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.request.RenewalMemberGradeRequestDto;
-import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response.MemberGradeResponseDto;
-import shop.gaship.scheduler.gradeadvancement.scheduler.entity.AdvancementTarget;
-import shop.gaship.scheduler.gradeadvancement.scheduler.exception.MemberGradeEvaluateException;
+import shop.gaship.scheduler.graderenewal.dto.MemberGradeResponseDto;
+import shop.gaship.scheduler.graderenewal.dto.RenewalMemberGradeRequestDto;
+import shop.gaship.scheduler.graderenewal.dto.RenewalTargetMemberDto;
+import shop.gaship.scheduler.graderenewal.exception.MemberGradeEvaluateException;
+
 
 /**
  * 승급 대상회원 데이터와 회원등급 데이터를 통해
@@ -31,40 +30,29 @@ import shop.gaship.scheduler.gradeadvancement.scheduler.exception.MemberGradeEva
 @Component
 @RequiredArgsConstructor
 @StepScope
-public class ProgressGradeAdvancementProcessor
-        implements ItemProcessor<AdvancementTarget, RenewalMemberGradeRequestDto> {
-
-    private final AdvancementAdapter advancementAdapter;
+public class ProgressGradeRenewalProcessor
+        implements ItemProcessor<RenewalTargetMemberDto, RenewalMemberGradeRequestDto> {
 
     private List<MemberGradeResponseDto> memberGradeList;
 
     @Override
-    public RenewalMemberGradeRequestDto process(AdvancementTarget advancementTarget) {
-        Long accumulatePurchaseAmount = advancementAdapter
-                .getAccumulatePurchaseAmount(advancementTarget.getMemberNo(),
-                        advancementTarget.getNextRenewalGradeDate());
+    public RenewalMemberGradeRequestDto process(RenewalTargetMemberDto renewalTargetMember) {
 
-        MemberGradeResponseDto evaluatedMemberGrade = evaluateMemberGrade(accumulatePurchaseAmount);
+        if (Objects.isNull(renewalTargetMember.getAccumulateAmount())) {
+            renewalTargetMember.setAccumulateAmount(0L);
+        }
 
-        AdvancementMemberRequestDto advancementMemberRequestDto =
-                AdvancementMemberRequestDto.builder()
-                        .memberNo(advancementTarget.getMemberNo())
-                        .memberGradeNo(evaluatedMemberGrade.getNo())
-                        .nextRenewalGradeDate(calculateNextRenewalDate(advancementTarget
-                                .getNextRenewalGradeDate()))
-                        .build();
-
-        GradeHistoryAddRequestDto gradeHistoryAddRequestDto =
-                GradeHistoryAddRequestDto.builder()
-                        .memberNo(advancementTarget.getMemberNo())
-                        .totalAmount(accumulatePurchaseAmount)
-                        .gradeName(evaluatedMemberGrade.getName())
-                        .at(advancementTarget.getNextRenewalGradeDate())
-                        .build();
+        MemberGradeResponseDto evaluatedMemberGrade = evaluateMemberGrade(
+                renewalTargetMember.getAccumulateAmount());
 
         return RenewalMemberGradeRequestDto.builder()
-                .advancementMemberRequestDto(advancementMemberRequestDto)
-                .gradeHistoryAddRequestDto(gradeHistoryAddRequestDto)
+                .memberNo(renewalTargetMember.getMemberNo())
+                .totalAmount(renewalTargetMember.getAccumulateAmount())
+                .gradeName(evaluatedMemberGrade.getName())
+                .at(renewalTargetMember.getRenewalGradeDate())
+                .memberGradeNo(evaluatedMemberGrade.getNo())
+                .nextRenewalGradeDate(calculateNextRenewalDate(renewalTargetMember
+                        .getRenewalGradeDate()))
                 .build();
     }
 
@@ -119,7 +107,7 @@ public class ProgressGradeAdvancementProcessor
 
     private LocalDate calculateNextRenewalDate(LocalDate renewalDate) {
         int renewalPeriod = Integer.parseInt(this.memberGradeList.get(0)
-                .getRenewalPeriodStatusCode());
+                .getRenewalPeriod());
 
         return renewalDate.plusMonths(renewalPeriod);
     }

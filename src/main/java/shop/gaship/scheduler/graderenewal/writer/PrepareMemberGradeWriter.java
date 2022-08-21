@@ -1,4 +1,4 @@
-package shop.gaship.scheduler.gradeadvancement.scheduler.writer;
+package shop.gaship.scheduler.graderenewal.writer;
 
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,7 @@ import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
-import shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response.MemberGradeResponseDto;
+import shop.gaship.scheduler.graderenewal.dto.MemberGradeResponseDto;
 
 /**
  * 읽어온 회원등급 데이터를 저장공간에 저장하기 위한 Item Writer 구현체.

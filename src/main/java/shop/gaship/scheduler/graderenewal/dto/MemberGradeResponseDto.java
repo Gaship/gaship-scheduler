@@ -1,4 +1,4 @@
-package shop.gaship.scheduler.gradeadvancement.domain.membergrade.dto.response;
+package shop.gaship.scheduler.graderenewal.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
