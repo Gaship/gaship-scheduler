@@ -25,10 +25,10 @@ class ServerConfigTest {
     @Test
     void serverConfigEnvironmentTest() {
         assertThat(config.getAuthUrl())
-                .isEqualTo("http://133.186.132.244:7071");
+                .isEqualTo("http://192.168.0.74:7071");
         assertThat(config.getPaymentsUrl())
-                .isEqualTo("http://133.186.132.244:7073");
+                .isEqualTo("http://192.168.0.57:7073");
         assertThat(config.getShoppingMallUrl())
-                .isEqualTo("http://133.186.132.244:7072");
+                .isEqualTo("http://192.168.0.96");
     }
 }
