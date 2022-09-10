@@ -18,7 +18,7 @@ import org.springframework.test.context.TestPropertySource;
  * @since 1.0
  */
 @SpringBootTest
-@TestPropertySource("classpath:application.properties")
+@TestPropertySource("classpath:application-prod.properties")
 class DataSourceTest {
     @BatchDataSource
     @Autowired
@@ -38,10 +38,10 @@ class DataSourceTest {
         String couponUrl = couponDataSource.getConnection().getMetaData().getURL();
 
         assertThat(jobUrl)
-            .contains("gaship_batch_test");
+            .contains("gaship_batch");
         assertThat(shopUrl)
-            .contains("gaship_test");
+            .contains("gaship_shopping");
         assertThat(couponUrl)
-            .contains("gaship_coupon_test");
+            .contains("gaship_coupon_prod");
     }
 }
