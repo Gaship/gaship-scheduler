@@ -23,7 +23,12 @@ public class CouponGenerationIssueJobConfig {
 
     @Bean
     public Job couponGenerationIssueJob() throws Exception {
-        return jobBuilderFactory.get(LocalDateTime.now().toString())
-            .start(couponGenerationIssueStepConfig.prepareMemberNoList()).build();
+        return jobBuilderFactory.get("쿠폰생성발급 처리 job")
+            .start(couponGenerationIssueStepConfig.getMemberNoList())
+                .on("FAILED").fail()
+            .from(couponGenerationIssueStepConfig.getMemberNoList())
+                .on("*").end()
+            .end()
+            .build();
     }
 }
