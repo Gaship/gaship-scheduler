@@ -1,5 +1,6 @@
 package shop.gaship.scheduler.graderenewal.config;
 
+import java.sql.SQLException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
@@ -9,9 +10,11 @@ import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.batch.item.support.CompositeItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.retry.backoff.FixedBackOffPolicy;
 import shop.gaship.scheduler.graderenewal.dto.MemberGradeResponseDto;
 import shop.gaship.scheduler.graderenewal.dto.RenewalMemberGradeRequestDto;
 import shop.gaship.scheduler.graderenewal.dto.RenewalTargetMemberDto;
+import shop.gaship.scheduler.graderenewal.exception.MemberGradeEvaluateException;
 import shop.gaship.scheduler.graderenewal.processor.ProgressGradeRenewalProcessor;
 import shop.gaship.scheduler.graderenewal.writer.PrepareMemberGradeWriter;
 
@@ -25,6 +28,8 @@ import shop.gaship.scheduler.graderenewal.writer.PrepareMemberGradeWriter;
 @RequiredArgsConstructor
 public class GradeRenewalStepConfig {
     private static final int CHUNK_SIZE = 10;
+    private final FixedBackOffPolicy backOffPolicy
+            = new FixedBackOffPolicy();
 
     private final StepBuilderFactory stepBuilderFactory;
     private final JdbcPagingItemReader<MemberGradeResponseDto> prepareMemberGradeReader;
@@ -56,11 +61,17 @@ public class GradeRenewalStepConfig {
     @Bean
     @JobScope
     public Step prepareMemberGradeList() {
+        backOffPolicy.setBackOffPeriod(3000);
+
         return stepBuilderFactory.get("회원등급 종류 얻는 step")
                 .allowStartIfComplete(true)
                 .<MemberGradeResponseDto, MemberGradeResponseDto>chunk(CHUNK_SIZE)
                 .reader(prepareMemberGradeReader)
                 .writer(prepareMemberGradeWriter)
+                .faultTolerant()
+                .retry(Exception.class)
+                .retryLimit(3)
+                .backOffPolicy(backOffPolicy)
                 .listener(promotionListener())
                 .build();
     }
@@ -75,12 +86,21 @@ public class GradeRenewalStepConfig {
     @Bean
     @JobScope
     public Step progressGradeRenewal() {
+        backOffPolicy.setBackOffPeriod(5000);
+
         return stepBuilderFactory.get("회원 등급 갱신데이터 처리를 진행하는 step")
                 .allowStartIfComplete(true)
                 .<RenewalTargetMemberDto, RenewalMemberGradeRequestDto>chunk(CHUNK_SIZE)
                 .reader(progressRenewalTargetReader)
                 .processor(progressGradeRenewalProcessor)
                 .writer(progressGradeRenewalWriter)
+                .faultTolerant()
+                .retry(MemberGradeEvaluateException.class)
+                .retryLimit(3)
+                .noRetry(SQLException.class)
+                .skip(MemberGradeEvaluateException.class)
+                .skipLimit(2)
+                .backOffPolicy(backOffPolicy)
                 .build();
     }
 }
