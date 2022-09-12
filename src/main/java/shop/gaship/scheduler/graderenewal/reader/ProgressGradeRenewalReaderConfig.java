@@ -78,7 +78,7 @@ public class ProgressGradeRenewalReaderConfig {
                 + "left outer join (select * from order_products p "
                 + "    inner join status_codes c "
                 + "        on c.status_code_no = p.order_status_no "
-                + "                     where c.status_code_name='구매확정') b "
+                + "                     where c.status_code_name='배송완료') b "
                 + "on a.order_no = b.order_no");
         queryProvider
                 .setGroupClause("group by a.member_no, a.renewalGradeDate "
