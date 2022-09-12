@@ -15,9 +15,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @RequiredArgsConstructor
-public class GradeAdvancementJobConfig {
+public class GradeRenewalJobConfig {
     private final JobBuilderFactory jobBuilderFactory;
-    private final GradeAdvancementStepConfig stepConfig;
+    private final GradeRenewalStepConfig stepConfig;
 
     /**
      * 회원승급을 진행하는 job.
@@ -27,7 +27,7 @@ public class GradeAdvancementJobConfig {
      */
     @Bean
     public Job renewalJob() {
-        return jobBuilderFactory.get("grade-renewal_" +  LocalDateTime.now())
+        return jobBuilderFactory.get("grade-renewal_" + LocalDateTime.now())
                 .start(stepConfig.prepareMemberGradeList())
                 .next(stepConfig.progressGradeRenewal())
                 .build();

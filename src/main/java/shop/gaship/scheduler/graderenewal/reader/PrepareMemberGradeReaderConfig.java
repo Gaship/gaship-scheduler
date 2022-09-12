@@ -63,7 +63,7 @@ public class PrepareMemberGradeReaderConfig {
                 .setSelectClause("select grade.member_grade_no as no,"
                         + "grade.name,"
                         + "grade.accumulate_amount as accumulateAmount,"
-                        + "period.status_code_name as renewalPeriod");
+                        + "period.explanation as renewalPeriod");
         queryProvider
                 .setFromClause("FROM member_grades grade "
                         + "INNER JOIN status_codes period "

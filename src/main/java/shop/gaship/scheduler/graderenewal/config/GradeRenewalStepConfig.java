@@ -23,7 +23,7 @@ import shop.gaship.scheduler.graderenewal.writer.PrepareMemberGradeWriter;
  */
 @Configuration
 @RequiredArgsConstructor
-public class GradeAdvancementStepConfig {
+public class GradeRenewalStepConfig {
     private static final int CHUNK_SIZE = 10;
 
     private final StepBuilderFactory stepBuilderFactory;
