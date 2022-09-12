@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.batch.BatchDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -45,7 +46,7 @@ public class DataSourceConfig {
      *
      * @return batch db 관련 DataSource 를 반환합니다.
      */
-    @Primary
+    @BatchDataSource
     @Bean(name = "jobDataSource")
     public DataSource jobDataSource() {
 
@@ -71,6 +72,8 @@ public class DataSourceConfig {
      *
      * @return shopping mall db 관련 DataSource 를 반환합니다.
      */
+
+    @Primary
     @Bean(name = "shopDataSource")
     public DataSource shopDataSource() {
 

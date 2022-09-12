@@ -1,0 +1,10 @@
+POST localhost:7074/api/coupon-generations-issues
+Content-Type: application/json
+
+{
+  "couponTypeNo" : 30,
+  "memberGradeNo" : 1,
+  "generationDatetime" : "2022-02-11T13:20:48",
+  "issueDatetime" : "2022-02-11T13:20:21",
+  "expirationDatetime" : "2022-02-11T13:20:21"
+}
